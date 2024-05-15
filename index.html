@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shape Calculator</title>
+</head>
+<body>
+<h1>Shape Calculator</h1>
+
+<script>
+class Shape {
+    constructor() {}
+
+    calculateArea() {}
+
+    calculateVolume() {}
+}
+
+class Triangle extends Shape {
+    constructor(base, height) {
+        super();
+        this.base = base;
+        this.height = height;
+    }
+
+    calculateArea() {
+        return 0.5 * this.base * this.height;
+    }
+}
+
+class Circle extends Shape {
+    constructor(radius) {
+        super();
+        this.radius = radius;
+    }
+
+    calculateArea() {
+        return Math.PI * this.radius ** 2;
+    }
+}
+
+class Rectangle extends Shape {
+    constructor(length, width) {
+        super();
+        this.length = length;
+        this.width = width;
+    }
+
+    calculateArea() {
+        return this.length * this.width;
+    }
+}
+
+class Sphere extends Shape {
+    constructor(radius) {
+        super();
+        this.radius = radius;
+    }
+
+    calculateArea() {
+        return 4 * Math.PI * this.radius ** 2;
+    }
+
+    calculateVolume() {
+        return (4/3) * Math.PI * this.radius ** 3;
+    }
+}
+
+class Cube extends Shape {
+    constructor(side) {
+        super();
+        this.side = side;
+    }
+
+    calculateArea() {
+        return 6 * this.side ** 2;
+    }
+
+    calculateVolume() {
+        return this.side ** 3;
+    }
+}
+
+function calculateShape() {
+    const shapeChoice = document.getElementById("shape").value.toLowerCase();
+    let shape;
+
+    switch (shapeChoice) {
+        case "triangle":
+            const base = parseFloat(prompt("Enter the base length: "));
+            const height = parseFloat(prompt("Enter the height: "));
+            shape = new Triangle(base, height);
+            break;
+        case "circle":
+            const radius = parseFloat(prompt("Enter the radius: "));
+            shape = new Circle(radius);
+            break;
+        case "rectangle":
+            const length = parseFloat(prompt("Enter the length: "));
+            const width = parseFloat(prompt("Enter the width: "));
+            shape = new Rectangle(length, width);
+            break;
+        case "sphere":
+            const sphereRadius = parseFloat(prompt("Enter the radius: "));
+            shape = new Sphere(sphereRadius);
+            break;
+        case "cube":
+            const cubeSide = parseFloat(prompt("Enter the side length: "));
+            shape = new Cube(cubeSide);
+            break;
+        default:
+            alert("Invalid shape choice.");
+            return;
+    }
+
+    const area = shape.calculateArea();
+    let output = `The area of the ${shapeChoice} is: ${area}`;
+
+    if (shape instanceof Sphere || shape instanceof Cube) {
+        const volume = shape.calculateVolume();
+        output += `\nThe volume of the ${shapeChoice} is: ${volume}`;
+    }
+
+    alert(output);
+}
+</script>
+
+<label for="shape">Select a shape:</label>
+<select id="shape">
+    <option value="triangle">Triangle</option>
+    <option value="circle">Circle</option>
+    <option value="rectangle">Rectangle</option>
+    <option value="sphere">Sphere</option>
+    <option value="cube">Cube</option>
+</select>
+
+<button onclick="calculateShape()">Calculate</button>
+
+</body>
+</html>
